@@ -1,0 +1,69 @@
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set multiple-cursors
+set surround
+set showcmd
+
+" plugins
+set NERDTree
+set highlightedyank
+set vim-paragraph-motion
+
+map <space> <leader>
+
+" Run and debug shortcuts
+map <leader>d :action Debug <CR>
+map <leader>r :action Run <CR>
+nnoremap <leader>s :action Stop <CR>
+map <leader>R :action RunMenu <CR>
+map <leader>b :action ToggleLineBreakpoint <CR>
+
+" go to implementations
+map <leader>i :action GotoImplementation <CR>
+
+" add new line bellow cursor
+nnoremap <leader>o mmo<Esc>`m
+
+" clear search
+nnoremap <leader>q :noh <CR>
+
+" esc but cursor stays in the same place
+inoremap <S-Esc> <Esc>l
+
+" move tab to other editor group
+nnoremap <C-w>m :action MoveEditorToOppositeTabGroup <CR>
+
+" reveal file in nerdtree
+nnoremap <leader>f :NERDTreeFind <CR>
+
+" tab selection
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+" noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" remove serach hilght
+noremap <leader>8 :noh<cr>
+
+" start/end line
+noremap <leader>h ^
+noremap <leader>l $
+
+" prev/next -  class / method
+noremap <leader>j ]mzz
+noremap <leader>k [mzz
+
+" Relative line numbers
+:set relativenumber number
+
+nnoremap <leader>n :set relativenumber number<CR>
+nnoremap <leader>N :set relativenumber!<CR>
+
