@@ -1,3 +1,4 @@
+alias vim='nvim'
 # --- program aliases ---
 alias excel='open -a /Applications/Microsoft\ Excel.app/'
 
