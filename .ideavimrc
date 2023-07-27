@@ -10,8 +10,14 @@ set showcmd
 set NERDTree
 set highlightedyank
 set vim-paragraph-motion
+set quickscope
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
 
 map <space> <leader>
+
+" Refactor Rename
+nnoremap cn :action RenameElement <CR>
 
 " Run and debug shortcuts
 map <leader>d :action Debug <CR>
@@ -20,14 +26,18 @@ nnoremap <leader>s :action Stop <CR>
 map <leader>R :action RunMenu <CR>
 map <leader>b :action ToggleLineBreakpoint <CR>
 
+" Errors
+nnoremap <leader>ej :action GotoNextError <CR>
+nnoremap <leader>ek :action GotoPreviousError <CR>
+
+" Show context
+nnoremap <leader>q :action EditorContextInfo <CR>
+
 " go to implementations
 map <leader>i :action GotoImplementation <CR>
 
 " add new line bellow cursor
 nnoremap <leader>o mmo<Esc>`m
-
-" clear search
-nnoremap <leader>q :noh <CR>
 
 " esc but cursor stays in the same place
 inoremap <S-Esc> <Esc>l
@@ -37,6 +47,9 @@ nnoremap <C-w>m :action MoveEditorToOppositeTabGroup <CR>
 
 " reveal file in nerdtree
 nnoremap <leader>f :NERDTreeFind <CR>
+
+" File structure
+map <leader>s :action FileStructurePopup <CR>
 
 " tab selection
 noremap <leader>1 1gt
@@ -50,7 +63,7 @@ noremap <leader>7 7gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
-" remove serach hilght
+" remove search highlight
 noremap <leader>8 :noh<cr>
 
 " start/end line
