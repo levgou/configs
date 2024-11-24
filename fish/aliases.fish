@@ -1,4 +1,4 @@
-alias vim='nvim'
+alias vim='/Users/levgourevitch/.local/bin/lvim'
 # --- program aliases ---
 alias excel='open -a /Applications/Microsoft\ Excel.app/'
 
@@ -17,7 +17,7 @@ alias b='cd -'
 alias h1='head -n 1'
 
 function ltt
-	unbuffer ls -Gltrha $argv[1] | tail
+	ls -Gltrha $argv[1] | tail
 end
 
 alias ltd='ltt ~/Downloads'
@@ -99,29 +99,6 @@ function git-like
 	git branch -d temp456
 end
 
-# --- Brazil ---
-alias bb=brazil-build
-alias bba='brazil-build apollo-pkg'
-alias bball='brc --allPackages'
-alias bbb='brc --allPackages brazil-build'
-alias bbr='brc brazil-build'
-alias bbra='bbr apollo-pkg'
-alias brazil-octane=/apollo/env/OctaneBrazilTools/bin/brazil-octane
-alias brc=brazil-recursive-cmd
-alias bre=brazil-runtime-exec
-alias bws='brazil ws'
-alias bwscreate='bws create -n'
-alias bwsuse='bws use --gitMode -p'
-
-alias sink='brazil ws sync --md'
-alias show='brazil ws show'
-alias rls='rm -f Podfile.lock && bb release'
-alias bbx='rm -f Podfile.lock && bb xcode-env'
-alias rlsx='rm -f Podfile.lock && bb xcode-env && bb release'
-alias edge-cache='brazil-package-cache disable_edge_cache ; brazil-package-cache enable_edge_cache'
-alias sink='brazil ws sync --md'
-alias bs='bb start'
-alias ba='bb server-axle'
 
 # --- JQ ---
 function js_arr_csv
@@ -183,3 +160,86 @@ alias jt='node_modules/jest-cli/bin/jest.js --colors --config jestconfig.json --
 
 # this "accepts" 2 arguments - first for test suite pattern, 2nd for filename pattern
 alias jest-single='node_modules/jest-cli/bin/jest.js --colors --config jestconfig.json --coverage false -t'
+
+
+
+# Kubectl sync - given the path to ..../django/project and a pod name
+# It will sync the local files to the remote ones upon local file change
+function kks -a source -a pod
+	fswatch -o $source | while read f; rsync -avurzP --blocking-io --exclude '__pycache__' --rsync-path= --rsh="kubectl exec  -i $pod  -- " $source/*  rsync:/ ; end
+end
+
+# This will present an interactive menu with all your pods (adjust grep command - with your name)
+# If you pass the script runner name - itll just connect to it (kk some-name)
+# If you pass l as an argument (a la. kk l) it'll list all of your pods
+# Note this will export an GLOBAL vairable to all of your shells LAST_POD_CONNECTED
+function kk -a pod
+	if [ "$pod" = "l" ]
+		kubectl get pods | grep lev    #  <------   set your name here
+	else if test -n "$pod"
+    set --erase --global LAST_POD_CONNECTED
+		set -xU LAST_POD_CONNECTED $pod
+		echo "Copying config files"
+		kubectl cp /Users/levgourevitch/private/configure_docker.bash $LAST_POD_CONNECTED:/root/project/configure_docker.bash 
+		kubectl cp /Users/levgourevitch/private/docker_bashrc.bash $LAST_POD_CONNECTED:/root/.bashrc
+		kubectl cp /Users/levgourevitch/private/docker_tmux.conf $LAST_POD_CONNECTED:/root/.tmux.conf
+		kubectl cp /Users/levgourevitch/private/ipython_config_extra.py $LAST_POD_CONNECTED:/root/ipython_config_extra.py
+		echo "Connecting to: $pod"
+		kubectl exec -it $pod -- /bin/bash
+	else
+		set pod (kubectl get pods | rg lev | fzf | awk '{print $1}')
+		kk $pod
+	end
+end
+
+function kkf 
+	set pod (kubectl get pods | rg lev | fzf | awk '{print $1}')
+	set -xU LAST_POD_CONNECTED $pod
+	echo "Connecting to: $pod"
+	kubectl exec -it $pod -- /bin/bash
+end
+
+function kka
+	set pod (kubectl get pods | fzf | awk '{print $1}')
+	echo "Connecting to: $pod"
+	kubectl exec -it $pod -- /bin/bash
+end
+
+# in case LAST_POD_CONNECTED is set, just connect to it (usefull for re-connecting)
+function kkl
+	if set -q LAST_POD_CONNECTED
+		kubectl exec -it $LAST_POD_CONNECTED -- /bin/bash
+	end
+end
+
+# in case LAST_POD_CONNECTED is set, copy a file from your project to the correct
+# place inside the script runner
+function kkc -a file
+	if set -q LAST_POD_CONNECTED
+		if string match -q -- '*django/project/*' $file && test -f $file
+			set pod_filename (echo $file | sed 's/.*django\/project\///g')
+			echo "Copying to $LAST_POD_CONNECTED:$pod_filename"
+			kubectl cp $file $LAST_POD_CONNECTED:$pod_filename
+		end
+	end
+end
+
+
+function aws-export-sts-keys -a code
+	set profile "loris"
+
+	if test -z "$code"
+		echo "Please provide OTP"
+		return 1
+	end
+
+	set mfa_arn (aws sts get-caller-identity --profile $profile | jq -r '.Arn' | sed 's/user/mfa/')
+
+	set creds (aws sts get-session-token --profile $profile --serial-number $mfa_arn --token-code $code)
+
+	set -xU AWS_ACCESS_KEY_ID (echo $creds | jq -r '.Credentials.AccessKeyId')
+	set -xU AWS_SECRET_ACCESS_KEY (echo $creds | jq -r '.Credentials.SecretAccessKey')
+	set -xU AWS_SESSION_TOKEN (echo $creds | jq -r '.Credentials.SessionToken')
+	set -xU AWS_DEFAULT_REGION "us-east-2"
+end
+

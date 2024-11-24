@@ -1,3 +1,4 @@
+" https://gist.github.com/zchee/9c78f91cc5ad771c1f5d
 set hlsearch
 set incsearch
 set ignorecase
@@ -19,12 +20,18 @@ map <space> <leader>
 " Refactor Rename
 nnoremap cn :action RenameElement <CR>
 
+" copy into clipboard
+noremap <leader>yaw "*yaw
+noremap <leader>yiw "*yiw
+
+" Git
+map <leader>b :action Git.Branches <CR>
+
 " Run and debug shortcuts
-map <leader>d :action Debug <CR>
-map <leader>r :action Run <CR>
-nnoremap <leader>s :action Stop <CR>
-map <leader>R :action RunMenu <CR>
-map <leader>b :action ToggleLineBreakpoint <CR>
+" map <leader>d :action Debug <CR>
+" map <leader>r :action Run <CR>
+" nnoremap <leader>s :action Stop <CR>
+" map <leader>R :action RunMenu <CR>
 
 " Errors
 nnoremap <leader>ej :action GotoNextError <CR>
@@ -51,6 +58,9 @@ nnoremap <leader>f :NERDTreeFind <CR>
 " File structure
 map <leader>s :action FileStructurePopup <CR>
 
+" Close notifications
+map <leader>n :action MarkNotificationsAsRead <CR>
+
 " tab selection
 noremap <leader>1 1gt
 noremap <leader>2 2gt
@@ -70,13 +80,18 @@ noremap <leader>8 :noh<cr>
 noremap <leader>h ^
 noremap <leader>l $
 
-" prev/next -  class / method
-noremap <leader>j ]mzz
-noremap <leader>k [mzz
+" prev/next - method
+noremap <leader>j :action MethodDown<cr>
+noremap <leader>k :action MethodUp<cr>
+
+" prev/next  - class
+noremap <leader>J j/class <cr>:noh<cr>wzz
+noremap <leader>K k?class <cr>:noh<cr>wzz
+
 
 " Relative line numbers
-:set relativenumber number
+" :set relativenumber number
 
-nnoremap <leader>n :set relativenumber number<CR>
-nnoremap <leader>N :set relativenumber!<CR>
+" nnoremap <leader>n :set relativenumber number<CR>
+" nnoremap <leader>N :set relativenumber!<CR>
 
