@@ -4,7 +4,7 @@ curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debi
 
 install_utils.sh
 
-apt install -y unzip fish
+apt install -y unzip fish tmux
 apt-get -y install rsync git   # git is for tpm / cloning repos
 # gcc
 
@@ -19,14 +19,14 @@ mv squashfs-root/ ~/nvim
 mkdir -p ~/.config/nvim
 
 # tmux
-# mkdir -p ~/.tmux/plugins
-# curl -OLJ https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip 
+mkdir -p ~/.tmux/plugins
+curl -OLJ https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip 
 
-# unzip tpm-master.zip  -d ~/.tmux/plugins
-# rm -v tpm-master.zip
-# mv -v ~/.tmux/plugins/tpm-master ~/.tmux/plugins/tpm
+unzip tpm-master.zip  -d ~/.tmux/plugins
+rm -v tpm-master.zip
+mv -v ~/.tmux/plugins/tpm-master ~/.tmux/plugins/tpm
 
-# ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 # curl https://raw.githubusercontent.com/riobard/bash-powerline/master/bash-powerline.sh > ~/.bash-powerline.sh
 
@@ -42,3 +42,7 @@ mkdir -p ~/.config/fish/
 mv -v docker_config.fish ~/.config/fish/config.fish
 # Plugins
 # curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+
+
+# open new tmux session in background with 2 pains, one with django shell running
+tmux new -d -s main && tmux new-window -n manage -t main && tmux send-keys -t main.1 './manage.py shell' Enter 

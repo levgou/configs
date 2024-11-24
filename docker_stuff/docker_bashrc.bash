@@ -14,5 +14,4 @@ set -o vi
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward' 
 
-tmux set-window-option -g mode-keys vi
 
