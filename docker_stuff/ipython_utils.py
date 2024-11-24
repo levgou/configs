@@ -1,5 +1,5 @@
 
-class U:
+class C:
     @classmethod
     def cc_dates(cls, cc):
         from collections import Counter
