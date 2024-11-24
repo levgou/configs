@@ -76,6 +76,12 @@ alias rgi='rg -i'
 alias gnode='set PATH ~/npm-glob/bin $PATH'
 alias gradle-kill="pkill -f '.*GradleDaemon.*'"
 
+# --- DCApp ---
+alias crr='./.scripts/crr.bash'
+
+alias ios-from-android='rm -rf src && cp -r ../../../jack-android/src/JackDataCollectionReactNative/src . && bb prepublishIOSDebug && cd ../JackDataCollectionIOS/ && rls && cd -'
+
+alias rls-and='bb prepublishAndroidDebug && cd ../JackDataCollectionAndroid/ && rls && cd -'
 
 # --- Git ---
 alias append-commit='git add . && git commit --amend --no-edit'
@@ -174,11 +180,10 @@ function kk -a pod
     set --erase --global LAST_POD_CONNECTED
 		set -xU LAST_POD_CONNECTED $pod
 		echo "Copying config files"
-		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/configure_docker.bash $LAST_POD_CONNECTED:/root/project/configure_docker.bash 
-		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/docker_bashrc.bash $LAST_POD_CONNECTED:/root/.bashrc
-		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/docker_tmux.conf $LAST_POD_CONNECTED:/root/.tmux.conf
-		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/ipython_config_extra.py $LAST_POD_CONNECTED:/root/ipython_config_extra
-		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/ipython_utils.py $LAST_POD_CONNECTED:/root/project/ipython_utils.py
+		kubectl cp /Users/levgourevitch/private/configure_docker.bash $LAST_POD_CONNECTED:/root/project/configure_docker.bash 
+		kubectl cp /Users/levgourevitch/private/docker_bashrc.bash $LAST_POD_CONNECTED:/root/.bashrc
+		kubectl cp /Users/levgourevitch/private/docker_tmux.conf $LAST_POD_CONNECTED:/root/.tmux.conf
+		kubectl cp /Users/levgourevitch/private/ipython_config_extra.py $LAST_POD_CONNECTED:/root/ipython_config_extra.py
 		echo "Connecting to: $pod"
 		kubectl exec -it $pod -- /bin/bash
 	else
