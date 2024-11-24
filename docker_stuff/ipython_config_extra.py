@@ -8,4 +8,5 @@ c.InteractiveShellApp.exec_lines = [
     'from collections import Counter, defaultdict;'
     'from djangocommon import conversation_utils;'
     'from django.utils import timezone;'
+    'from ipython_utils import *;'
 ]

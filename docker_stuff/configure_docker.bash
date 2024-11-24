@@ -31,12 +31,12 @@ pip install pdbpp
 # ./manage.py shell vim mode
 mkdir -p ~/.ipython/profile_default
 mv -v ipython_config_docker.py ~/.ipython/profile_default/ipython_config.py
-echo "c.TerminalInteractiveShell.editing_mode = 'vi'" >> ~/.ipython/profile_default/ipython_config.py
 
-echo "c.InteractiveShellApp.exec_lines = [
-    'from organization.models import Agent, Installation, ClientAgent, Client;'
-    'from brain.models import *;'
-    'from more_itertools import flatten;'
-    'from collections import Counter, defaultdict;'
-    'from pprint import pp;'
-]" >> ~/.ipython/profile_default/ipython_config.py
+# echo "c.TerminalInteractiveShell.editing_mode = 'vi'" >> ~/.ipython/profile_default/ipython_config.py
+# echo "c.InteractiveShellApp.exec_lines = [
+#     'from organization.models import Agent, Installation, ClientAgent, Client;'
+#     'from brain.models import *;'
+#     'from more_itertools import flatten;'
+#     'from collections import Counter, defaultdict;'
+#     'from pprint import pp;'
+# ]" >> ~/.ipython/profile_default/ipython_config.py
