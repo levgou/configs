@@ -35,7 +35,10 @@ pip install pdbpp
 
 # ./manage.py shell vim mode
 mkdir -p ~/.ipython/profile_default
-mv -v ipython_config_docker.py ~/.ipython/profile_default/ipython_config.py
+mv -v /root/ipython_config_extra ~/.ipython/profile_default/ipython_config.py
 
-# fish plugins
-#curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+# fish
+mkdir -p ~/.config/fish/
+mv -v docker_config.fish ~/.config/fish/config.fish
+# Plugins
+# curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher

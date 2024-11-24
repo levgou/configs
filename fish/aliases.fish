@@ -179,6 +179,7 @@ function kk -a pod
 		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/docker_tmux.conf $LAST_POD_CONNECTED:/root/.tmux.conf
 		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/ipython_config_extra.py $LAST_POD_CONNECTED:/root/ipython_config_extra
 		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/ipython_utils.py $LAST_POD_CONNECTED:/root/project/ipython_utils.py
+		kubectl cp /Users/levgourevitch/private/configs/docker_stuff/docker_config.fish $LAST_POD_CONNECTED:/root/project/docker_config.fish
 		echo "Connecting to: $pod"
 		kubectl exec -it $pod -- /bin/bash
 	else
