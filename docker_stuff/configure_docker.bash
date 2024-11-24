@@ -1,5 +1,10 @@
+# Fish
+echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_12/ /' | tee /etc/apt/sources.list.d/shells:fish:release:3.list
+curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_12/Release.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+
 install_utils.sh
-apt install unzip
+
+apt install -y unzip fish
 apt-get -y install rsync git   # git is for tpm / cloning repos
 # gcc
 
@@ -9,21 +14,21 @@ apt-get -y install rsync git   # git is for tpm / cloning repos
 # neovim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
-./nvim.appimage  --appimage-extract
+./nvim.appimage  --appimage-extract 2>&1 >> /dev/null
 mv squashfs-root/ ~/nvim
 mkdir -p ~/.config/nvim
 
 # tmux
-mkdir -p ~/.tmux/plugins
-curl -OLJ https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip 
+# mkdir -p ~/.tmux/plugins
+# curl -OLJ https://github.com/tmux-plugins/tpm/archive/refs/heads/master.zip 
 
-unzip tpm-master.zip  -d ~/.tmux/plugins
-rm -v tpm-master.zip
-mv -v ~/.tmux/plugins/tpm-master ~/.tmux/plugins/tpm
+# unzip tpm-master.zip  -d ~/.tmux/plugins
+# rm -v tpm-master.zip
+# mv -v ~/.tmux/plugins/tpm-master ~/.tmux/plugins/tpm
 
-~/.tmux/plugins/tpm/scripts/install_plugins.sh
+# ~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
-curl https://raw.githubusercontent.com/riobard/bash-powerline/master/bash-powerline.sh > ~/.bash-powerline.sh
+# curl https://raw.githubusercontent.com/riobard/bash-powerline/master/bash-powerline.sh > ~/.bash-powerline.sh
 
 # pip install
 pip install pdbpp
@@ -32,11 +37,3 @@ pip install pdbpp
 mkdir -p ~/.ipython/profile_default
 mv -v ipython_config_docker.py ~/.ipython/profile_default/ipython_config.py
 
-# echo "c.TerminalInteractiveShell.editing_mode = 'vi'" >> ~/.ipython/profile_default/ipython_config.py
-# echo "c.InteractiveShellApp.exec_lines = [
-#     'from organization.models import Agent, Installation, ClientAgent, Client;'
-#     'from brain.models import *;'
-#     'from more_itertools import flatten;'
-#     'from collections import Counter, defaultdict;'
-#     'from pprint import pp;'
-# ]" >> ~/.ipython/profile_default/ipython_config.py
