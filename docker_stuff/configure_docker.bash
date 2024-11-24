@@ -37,3 +37,5 @@ pip install pdbpp
 mkdir -p ~/.ipython/profile_default
 mv -v ipython_config_docker.py ~/.ipython/profile_default/ipython_config.py
 
+# fish plugins
+#curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
