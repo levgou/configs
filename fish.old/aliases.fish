@@ -239,10 +239,3 @@ function aws-export-sts-keys -a code
 	set -xU AWS_DEFAULT_REGION "us-east-2"
 end
 
-
-# search all ignores and hidden
-alias fda='fd -HI'
-
-# gh
-alias sss='gh --repo loris-ai/deployment-state workflow run "Create Personal Script Runner"'
-

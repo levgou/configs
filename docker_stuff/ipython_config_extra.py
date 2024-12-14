@@ -9,4 +9,5 @@ c.InteractiveShellApp.exec_lines = [
     'from djangocommon import conversation_utils;'
     'from django.utils import timezone;'
     'from ipython_utils import *;'
+    'from django.db.models import TextChoices, Q, F;'
 ]

@@ -26,3 +26,7 @@ class C:
             for c, d in cc.values_list('channel', 'source_created')
             ).items()))
 
+    
+    @classmethod
+    def c(cls, i):
+        return Conversation.objects.filter(id=i).first()

@@ -4,9 +4,7 @@ curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debi
 
 install_utils.sh
 
-apt install -y unzip fish tmux
-apt-get -y install rsync git   # git is for tpm / cloning repos
-# gcc
+apt install -y unzip fish tmux rsync git gcc   # git is for tpm / cloning repos
 
 # git clone --depth 1 https://github.com/cjbassi/gotop /tmp/gotop
 # /tmp/gotop/scripts/download.sh
@@ -17,6 +15,8 @@ chmod u+x nvim.appimage
 ./nvim.appimage  --appimage-extract 2>&1 >> /dev/null
 mv squashfs-root/ ~/nvim
 mkdir -p ~/.config/nvim
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
 
 # tmux
 mkdir -p ~/.tmux/plugins
@@ -46,3 +46,7 @@ mv -v docker_config.fish ~/.config/fish/config.fish
 
 # open new tmux session in background with 2 pains, one with django shell running
 tmux new -d -s main && tmux new-window -n manage -t main && tmux send-keys -t main.1 './manage.py shell' Enter 
+
+# atuin
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+
