@@ -88,6 +88,9 @@ noremap <leader>k :action MethodUp<cr>
 noremap <leader>J j/class <cr>:noh<cr>wzz
 noremap <leader>K k?class <cr>:noh<cr>wzz
 
+" show inline impl
+noremap <leader>c :action QuickImplementations<cr>
+
 
 " Relative line numbers
 " :set relativenumber number
